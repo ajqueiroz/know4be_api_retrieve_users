@@ -1,0 +1,112 @@
+KNOWBE4 USER REPORT - HOW TO RUN (Visual Studio Code)
+=====================================================
+
+What it does: gets the list of users from KnowBe4, leaves out the people
+listed in exceptions.txt, and saves the result as an Excel-ready file (CSV)
+and a PDF in the "Reports" folder.
+
+
+EVERY TIME YOU NEED THE REPORT
+------------------------------
+1. Open Visual Studio Code. It normally reopens the "KnowBe4 Report" folder
+   by itself. If not: File > Open Folder > choose "KnowBe4 Report".
+
+2. (Only if the exception list has changed)
+   In the file list on the left, click  exceptions.txt , type one email
+   address per line, and save with Ctrl+S.
+
+3. In the file list on the left, click  knowbe4_users_export.py .
+   Do not change anything in it.
+
+4. Click the Run button - the small triangle at the top right of the window.
+
+5. Watch the Terminal panel at the bottom and wait for the word "Finished".
+   The Reports folder then opens by itself with two new files, named with
+   today's date and time:
+      KnowBe4_Users_....csv   (open with Excel)
+      KnowBe4_Users_....pdf
+
+That is all.
+
+
+ONE-TIME SETUP ON EACH COMPUTER  (about 10 minutes - ask IT if unsure)
+----------------------------------------------------------------------
+1. Make sure these are installed (company software portal, or ask IT):
+      - Python 3
+      - Visual Studio Code
+      - inside Visual Studio Code, the "Python" extension by Microsoft
+        (Extensions icon on the left > search "Python" > Install)
+
+2. Copy this whole folder to the computer, for example into Documents.
+   Keep all the files together in the folder.
+
+3. In Visual Studio Code: File > Open Folder > choose "KnowBe4 Report".
+   If it asks "Do you trust the authors of the files in this folder?",
+   click Yes.
+
+4. Open the menu Terminal > New Terminal. In the panel that appears at the
+   bottom, type this line exactly and press Enter:
+
+      py -m pip install -r requirements.txt
+
+   Wait until it stops and shows a new empty line. This downloads the three
+   components listed in requirements.txt. It is only needed once.
+   (If it says 'py' is not recognised, use  python  instead of  py .)
+
+5. Run the report once (steps 3 and 4 of "Every time" above).
+   The first time, it asks for the KnowBe4 API key. Your KnowBe4
+   administrator finds it in the KnowBe4 console under:
+      Account Settings > Account Integrations > API > Reporting API
+   Click in the Terminal panel, paste the key with Ctrl+V and press Enter.
+   NOTHING APPEARS ON SCREEN while you paste - that is normal, the key is
+   kept hidden.
+   The key is then stored in Windows Credential Manager for your Windows
+   account. You will not be asked again.
+
+
+CHANGING WHAT THE REPORT CONTAINS
+---------------------------------
+Click  settings.ini  in the file list on the left to choose:
+   - CSV, PDF or both
+   - active users, archived users, or all
+   - whether exception users are left out, or kept and marked
+Save with Ctrl+S.
+
+
+IF SOMETHING GOES WRONG
+-----------------------
+The Terminal panel always says what happened, after the word PROBLEM.
+
+There is no Run button (triangle)
+   The "Python" extension is missing, or the file that is open is not
+   knowbe4_users_export.py. See one-time setup, step 1.
+
+"A required component is not installed" / "No module named ..."
+   Do step 4 of the one-time setup. If the download is blocked by the
+   company network, ask IT to install: requests, reportlab, keyring.
+
+"KnowBe4 did not accept the saved API key"
+   The key was replaced in KnowBe4. Run the report again and paste the new
+   key when asked.
+
+"KnowBe4 could not be reached"
+   Check the internet connection (and VPN), then run it again.
+
+"These exception emails were NOT found in KnowBe4"
+   Not an error. An address in exceptions.txt does not match anyone in
+   KnowBe4 - usually a spelling mistake or someone who has left.
+
+"WARNING ... this report may be incomplete"
+   Compare the user count shown with the KnowBe4 console and tell IT.
+
+It seems stuck after "API key:"
+   It is waiting for the key. Click in the Terminal panel, paste, press Enter.
+
+
+PLEASE NOTE
+-----------
+- The reports contain personal data (names, email addresses, phishing test
+  results). Keep this folder somewhere only you can open, share reports only
+  with people who are allowed to see them, and delete old reports you no
+  longer need.
+- Never put the API key in an email, a chat message or a file.
